@@ -2,13 +2,39 @@ import Link from "next/link";
 import { headers, cookies } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import { getAccessToken } from "../api/get-token/route";
+
 
 export default function Login({
   searchParams,
 }: {
   searchParams: { message: string };
 }) {
-  const signIn = async (formData: FormData) => {
+
+    async function signInWithSpotify() {
+        "use server";
+
+        const cookieStore = cookies();
+        const supabase = createClient(cookieStore);
+
+        const { data, error } = await supabase.auth.signInWithOAuth({
+          provider: 'spotify',
+          
+        })
+        
+        const accessToken = getAccessToken();
+        console.log(accessToken);
+        //console.log(data, error);
+        //console.log(supabase.auth);
+        if (error) {
+            return redirect("/login?message=Could not authenticate user");
+        }
+
+        return redirect("/");
+      }
+      
+
+   const signIn = async (formData: FormData) => {
     "use server";
 
     const email = formData.get("email") as string;
@@ -20,6 +46,7 @@ export default function Login({
       email,
       password,
     });
+    console.log(email);
 
     if (error) {
       return redirect("/login?message=Could not authenticate user");
@@ -101,17 +128,27 @@ export default function Login({
         <button className="bg-green-700 rounded-md px-4 py-2 text-foreground mb-2">
           Sign In
         </button>
+
         <button
           formAction={signUp}
           className="border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2"
         >
           Sign Up
         </button>
+        
         {searchParams?.message && (
           <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
             {searchParams.message}
           </p>
         )}
+      </form>
+      <form>
+        <button
+          formAction={signInWithSpotify}
+          className="border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2"
+        >
+          Sign Up With Spotify
+        </button>
       </form>
     </div>
   );
