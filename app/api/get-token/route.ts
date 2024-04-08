@@ -1,8 +1,6 @@
-
-
 export const getAccessToken = async () => {
-    const client_id = process.env.SPOTIFY_CLIENT_ID; // Replace with your client ID
-    const client_secret = process.env.SPOTIFY_CLIENT_SECRET; // Replace with your client secret
+    const client_id = process.env.SPOTIFY_CLIENT_ID; 
+    const client_secret = process.env.SPOTIFY_CLIENT_SECRET; 
   
     
     fetch('https://accounts.spotify.com/api/token', {
@@ -20,3 +18,6 @@ export const getAccessToken = async () => {
       });
       return null;
   }
+
+
+  
