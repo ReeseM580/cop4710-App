@@ -39,6 +39,7 @@ export default async function AuthButton() {
             
             <form action={signOut}>
                 <button className="flex space-x-2 bg-black rounded-full
+                border-white border
                     hover:bg-gray-500 items-center  
                     hover:text-white cursor-pointer
                     hover:opacity-80 p-1.5">
@@ -51,6 +52,7 @@ export default async function AuthButton() {
     ) : (
         <Link href="/login"
         className="flex bg-black rounded-full
+        border-white border
         hover:bg-gray-500 items-center space-x-2 
         hover:text-white cursor-pointer
         hover:opacity-80 p-1.5">

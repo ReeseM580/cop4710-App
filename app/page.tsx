@@ -48,32 +48,35 @@ export default async function Index() {
                     {/*<DeployButton />*/}
                     <div className="flex p-3">
                         <Link href={`/profile/${session?.user.id}`}className="flex bg-black rounded-full
+                        border-white border
                         hover:bg-gray-500 items-center space-x-2 
                         hover:text-white cursor-pointer
-                        hover:opacity-80 p-1.5">
+                        hover:opacity-80 p-1.5 m-2">
                             <UserIcon className="h-5 w-5"/>
                             <p>Profile</p>
                         </Link>
 
                         <Link href="/"className="flex bg-black rounded-full
+                        border-white border
                         hover:bg-gray-500 items-center space-x-2 
                         hover:text-white cursor-pointer
-                        hover:opacity-80 p-1.5">
+                        hover:opacity-80 p-1.5 m-2">
                             <HomeIcon className="h-5 w-5"/>
                             <p>Home</p>
                         </Link>
 
                         <Link href="/"className="flex bg-black rounded-full
+                        border-white border
                         hover:bg-gray-500 items-center space-x-2 
                         hover:text-white cursor-pointer
-                        hover:opacity-80 p-1.5">
+                        hover:opacity-80 p-1.5 m-2">
                             <SearchIcon className="h-5 w-5"/>
                             <p>Search</p>
                         </Link>
                     </div>
 
-                    <div className="flex absolute right-20 left-20 items-center justify-center flex-grow space-x-2">
-                        <h1 >Now Playing</h1>
+                    <div className="flex flex-grow space-x-2">
+                        <h1>Now Playing</h1>
                         <MusicNoteIcon className="h-5 w-5" />
                     </div>
 
