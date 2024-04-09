@@ -20,6 +20,12 @@ export default async function AuthButton() {
     return redirect("/login");
   };
 
+  const {
+    data: {session},
+} = await supabase.auth.getSession()
+
+console.log(session); //THIS IS WHERE THE PROVIDER TOKEN IS WHICH IS NEEDED TO MAKE API CALLS
+
   return user ? (
     <div className="flex items-center gap-4">
       Hey, {user.email}!

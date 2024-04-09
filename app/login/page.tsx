@@ -16,21 +16,28 @@ export default function Login({
 
         const cookieStore = cookies();
         const supabase = createClient(cookieStore);
+        const origin = headers().get('origin');
 
         const { data, error } = await supabase.auth.signInWithOAuth({
           provider: 'spotify',
-          
+          options: {redirectTo: `${origin}/auth/callback`, scopes: "user-read-email playlist-read-private playlist-read-collaborative streaming user-read-private user-library-read user-top-read user-read-playback-state user-modify-playback-state user-read-currently-playing user-read-recently-played user-follow-read"}
         })
         
-        const accessToken = getAccessToken();
-        console.log(accessToken);
-        //console.log(data, error);
+        //const accessToken = getAccessToken();
+        //console.log(accessToken);
+        console.log(data);
+
+        //**********data.session.providerToken
         //console.log(supabase.auth);
+
         if (error) {
             return redirect("/login?message=Could not authenticate user");
         }
 
-        return redirect("/");
+        if(data.url)
+            return redirect(data.url)
+        
+        return redirect("/login?message=Could not authenticate user");
       }
       
 
