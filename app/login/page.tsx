@@ -95,6 +95,7 @@ export default function Login({
             <Link
                 href="/"
                 className="absolute left-8 top-8 flex bg-black rounded-full
+                border-white border
                 hover:bg-gray-500 items-center space-x-2 
                 hover:text-white cursor-pointer
                 hover:opacity-80 p-1.5">
@@ -107,10 +108,8 @@ export default function Login({
                 <form>
                     <button
                         formAction={signInWithSpotify}
-                        className="bg-black rounded-full border-gray
-                        hover:bg-gray-500 space-x-2 
-                        hover:text-white cursor-pointer
-                        hover:opacity-80 p-1.5"
+                        className="bg-black rounded-full border-white border hover:bg-gray-500
+                        hover:text-white cursor-pointer hover:opacity-80 p-1.5"
                         >
                         Sign In With Spotify
                     </button>
