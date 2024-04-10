@@ -29,9 +29,9 @@ export default async function Navbar(){
 
     return (
         <nav className="animate-in w-full flex justify-center border-b border-b-foreground/10 h-16">
-                <div className="w-full flex justify-between items-center text-sm">
+                <div className="w-full grid-container justify-between items-center text-sm">
                     {/*<DeployButton />*/}
-                    <div className="flex p-3">
+                    <div className="flex grid-item column nav p-3">
                         <Link href={`/profile/${encodeURIComponent(session?.user.user_metadata.name)}`}
                         className="flex bg-black rounded-full
                         border-white border
@@ -61,12 +61,12 @@ export default async function Navbar(){
                         </Link>
                     </div>
 
-                    <div className="flex flex-grow space-x-2">
+                    <div className="flex grid-item  p-3 space-x-2">
                         <h1>Now Playing</h1>
                         <MusicNoteIcon className="h-5 w-5" />
                     </div>
 
-                    <div className="flex p-3">
+                    <div className="flex grid-item  p-3">
                         {/* @ts-expect-error Server Component */}
                         {isSupabaseConnected && <AuthButton />}
                     </div>
