@@ -47,7 +47,8 @@ export default async function Index() {
                 <div className="w-full flex justify-between items-center text-sm">
                     {/*<DeployButton />*/}
                     <div className="flex p-3">
-                        <Link href={`/profile/${session?.user.id}`}className="flex bg-black rounded-full
+                        <Link href={`/profile/${encodeURIComponent(session?.user.user_metadata.name)}`}
+                        className="flex bg-black rounded-full
                         border-white border
                         hover:bg-gray-500 items-center space-x-2 
                         hover:text-white cursor-pointer

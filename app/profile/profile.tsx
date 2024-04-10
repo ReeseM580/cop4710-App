@@ -13,7 +13,7 @@ export default async function Profile() {
   
     return (
         <div>
-            <p>{session?.expires_at}</p>
+            <p>hi</p>
         </div>
     )
 
