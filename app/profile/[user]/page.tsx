@@ -43,11 +43,14 @@ export default async function Profile() {
                         <p className='text-black'> .</p>
                     </div>
                     
-                    <div className="column middle">
+                    <div className="flex column middle">
                         <div>
-                        <img alt="" src={session?.user.user_metadata.picture} style={{ borderRadius: '50%' }} 
-                        className="p-10 h-30 w-30"/>
-                        
+                            <img alt="" src={session?.user.user_metadata.picture} style={{ borderRadius: '50%' }} 
+                            className="p-10 h-lg w-lg"/> 
+                        </div>
+                        <h1 className="py-16 font-bold text-xl">{session?.user.user_metadata.name}</h1>
+                        <div>
+                            {artists.body.items?.at(0)?.track.album.name}
                         </div>
                     </div>
                     
