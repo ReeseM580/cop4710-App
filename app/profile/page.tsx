@@ -9,7 +9,7 @@ export default async function Profile() {
   
     return (
         <div>
-            <p>hi</p>
+            
         </div>
     )
 

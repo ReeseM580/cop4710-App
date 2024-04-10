@@ -13,7 +13,7 @@ export const getAccessToken = async () => {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data.access_token);
+        //console.log(data.access_token);
         return data.access_token;
       });
       return null;
