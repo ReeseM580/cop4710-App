@@ -82,6 +82,7 @@ export default async function Index() {
                     </div>
 
                     <div className="flex p-3">
+                        {/* @ts-expect-error Server Component */}
                         {isSupabaseConnected && <AuthButton />}
                     </div>
 
