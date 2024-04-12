@@ -29,13 +29,14 @@ export default async function Profile() {
             await spotifyApi.setRefreshToken(provider_refresh_token);
         }
     }
-
+    
+    const id = session?.user.id
     const artists = await spotifyApi.getMyRecentlyPlayedTracks();
     console.log(artists.body.items?.at(0)?.track.name);
 
     
         return (
-            <div className="w-full flex-col items-center"  style={{ fontFamily: 'monaco' }}>
+            <div className="animate-in w-full flex-col items-center"  style={{ fontFamily: 'monaco' }}>
                 {/* @ts-expect-error Server Component */}
                 {<Navbar/>}
                 <div className="row">

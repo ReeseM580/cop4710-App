@@ -29,7 +29,7 @@ export default async function AuthButton() {
             data: {session},
         } = await supabase.auth.getSession()
 
-        console.log(session); //THIS IS WHERE THE PROVIDER TOKEN IS WHICH IS NEEDED TO MAKE API CALLS
+        //console.log(session); //THIS IS WHERE THE PROVIDER TOKEN IS WHICH IS NEEDED TO MAKE API CALLS
 
     return user ? (
         <div className="flex items-center gap-4">
