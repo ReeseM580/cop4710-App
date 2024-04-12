@@ -41,6 +41,14 @@
   }
 }
 
+.full-div {
+    height: 200vh;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
 .grid-container {
     display: grid;
   column-gap: 50px;
