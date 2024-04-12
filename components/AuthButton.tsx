@@ -35,10 +35,10 @@ export default async function AuthButton() {
         <div className="flex items-center gap-4">
             {user.user_metadata.name}
             <img alt="Avatar" src={user.user_metadata.picture} style={{ borderRadius: '50%' }} 
-            className="h-11 w-11"/>
+            className="h-10 w-10"/>
             
             <form action={signOut}>
-                <button className="flex space-x-2 bg-black rounded-full
+                <button className="flex bg-black rounded-full
                 border-white border
                     hover:bg-gray-500 items-center  
                     hover:text-white cursor-pointer
