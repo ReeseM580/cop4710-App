@@ -29,32 +29,36 @@ export default async function Profile() {
             await spotifyApi.setRefreshToken(provider_refresh_token);
         }
     }
-
-    const artists = await spotifyApi.getMyRecentlyPlayedTracks();
-    console.log(artists.body.items?.at(0)?.track.name);
+    
+    const id = session?.user.id
+    const artists = await spotifyApi.getMyTopArtists();
+    console.log(artists.body.items?.at(0)?.name);
 
     
         return (
-            <div className="w-full flex-col items-center"  style={{ fontFamily: 'monaco' }}>
+            <div className="flex w-full flex-col items-center overflow-y-scroll scrollbar-hide"  style={{ fontFamily: 'monaco' }}>
                 {/* @ts-expect-error Server Component */}
                 {<Navbar/>}
-                <div className="row">
+                <div className="full-div w-full m-20">
                     <div className="column side">
                         <p className='text-black'> .</p>
                     </div>
                     
-                    <div className="column middle">
+                    <div className="flex column middle ">
                         <div>
-                        <img alt="" src={session?.user.user_metadata.picture} style={{ borderRadius: '50%' }} 
-                        className="p-10 h-30 w-30"/>
-                        
+                            <img alt="" src={session?.user.user_metadata.picture} style={{ borderRadius: '50%' }} 
+                            width="" height=""/> 
+                        </div>
+                        <h1 className="py-16 font-bold text-xl">{session?.user.user_metadata.name}</h1>
+                        <div>
+                            {artists.body.items?.at(1)?.name}
                         </div>
                     </div>
                     
                     <div className="column side">
                         <p className='text-black'> .</p>
                     </div>
-                    </div>
+                </div>
 
 
             </div>
