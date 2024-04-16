@@ -51,7 +51,7 @@ export default async function Index() {
             {/* @ts-expect-error Server Component */}
             {<Navbar/>}
 
-            <div className="flex-1 felx flex-col gap-20 max-w-4xl px-4 w-full full-div border-white m-16" >
+            <div className="flex-1 flex-col gap-20 max-w-4xl px-4 w-full full-div border-white m-16" >
                 {/* @ts-expect-error Server Component */}
                 {<Posts/>}
             </div>

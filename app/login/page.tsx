@@ -32,6 +32,7 @@ export default function Login({
         //**********data.session.providerToken
         //console.log(supabase.auth);
 
+
         if (error) {
             return redirect("/login?message=Could not authenticate user");
         }
