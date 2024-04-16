@@ -29,10 +29,17 @@ import {
     const isSupabaseConnected = canInitSupabaseClient();
   
     return (
-      <nav className="animate-in w-full flex justify-center fixed  border-b border-b-foreground/10 h-16">
+      <nav className="animate-in w-full flex justify-center fixed bg-black border-b border-b-foreground/10 h-16">
         <div className="grid grid-cols-3 w-full gap-4 items-center">
           {/* Left Section */}
           <div className="flex justify-start gap-2 pl-2">
+            <Link
+              href="/"
+              className="flex bg-black rounded-full border-white border hover:bg-gray-500 items-center gap-2 hover:text-white cursor-pointer hover:opacity-80 p-1.5"
+            >
+              <HomeIcon className="h-5 w-5" />
+              <p>Home</p>
+            </Link>
             <Link
               href={`/profile/${encodeURIComponent(
                 session?.user.user_metadata.name
@@ -43,13 +50,6 @@ import {
               <p>Profile</p>
             </Link>
   
-            <Link
-              href="/"
-              className="flex bg-black rounded-full border-white border hover:bg-gray-500 items-center gap-2 hover:text-white cursor-pointer hover:opacity-80 p-1.5"
-            >
-              <HomeIcon className="h-5 w-5" />
-              <p>Home</p>
-            </Link>
             <Link
               href="/search"
               className="flex bg-black rounded-full border-white border hover:bg-gray-500 items-center gap-2 hover:text-white cursor-pointer hover:opacity-80 p-1.5"

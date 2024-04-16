@@ -84,8 +84,9 @@ export default async function(){
             <Navbar/>
             
             <div className="flex w-full justify-center">  
-                <div className="">
-                    <img src={track.body.album.images[0].url}/>
+                <div className="m-16 p-3">
+                    <img src={track.body.album.images[0].url}
+                    width={500} height={500}/>
                         <p>{track.body.name}</p>
                         <p>by {track.body.artists[0].name}</p>
                         <label>Add a comment for today's song</label><br/>

@@ -4,6 +4,7 @@ import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import SpotifyWebApi from "spotify-web-api-node";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 
 export default async function CreatePostButton(){
@@ -60,7 +61,7 @@ export default async function CreatePostButton(){
             created_at: new Date().toISOString(), user_id: session?.user.id, track_id: trackId, comment: comment})
             .single();
 
-        revalidatePath('/')
+        return redirect('/')
     }
 
     return (
