@@ -68,35 +68,40 @@ export default async function Profile() {
                     <p className='text-black'> .</p>
                 </div>
                     
-                <div className="flex column middle ">
-                    <div>
-                        <img alt="" src={session?.user.user_metadata.picture} style={{ borderRadius: '50%' }} 
-                        width="" height=""/> 
+                <div className=" column middle" 
+                    style={{padding:2}}>
+                    <div className="flex items-center">
+                        <img alt="" src={session?.user.user_metadata.picture} style={{  height: 200, width: 200}}
+                        className="rounded-full"/>
+                        <h1 className="font-bold text-xl "
+                            style={{padding: 100}}>{session?.user.user_metadata.name}</h1>
                     </div>
-                    <h1 className="py-16 font-bold text-xl">{session?.user.user_metadata.name}</h1>
-                    <div>
-                        {artists.body.items?.at(1)?.name}
+                    <div className="flex" style={{alignItems: 'center', justifyContent: 'center'}}>
+                        <h1 style={{padding: 10}}>Posts</h1>
                     </div>
-                </div>
-                {/* New Code */}
-                <div style={{ fontFamily: 'monaco', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}
-                    className="m-8">
-                    {/* Table */}
-                    <table>
-                        <tbody>
-                            {/* Mapping over modifiedData to display each post */}
-                            {modifiedData?.map((post, index) => (
-                                <tr key={index}>
-                                    <td>
-                                        <img src={post.track_id.body.album.images[0].url} alt="Album Cover" />
-                                    </td>
-                                    <td style={{ color: '#FFFFFF', padding: 4}}>{post.track_id.body.name}</td>
-                                    <td style={{ color: '#FFFFFF', padding: 4}}>{post.track_id.body.artists[0].name}</td>
-                                    <td style={{ color: '#FFFFFF', padding: 4}}>{post.comment}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    <div>
+                        {/* New Code */}
+                        <div style={{ fontFamily: 'monaco', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 10}}
+                            className="">
+                            {/* Table */}
+                            <table>
+                                <tbody>
+                                    {/* Mapping over modifiedData to display each post */}
+                                    {modifiedData?.map((post, index) => (
+                                        <tr key={index} style={{border: 'solid', padding: 30, borderRadius: 10}}
+                                            className="border-white border-collapse-10%">
+                                            <td>
+                                                <img src={post.track_id.body.album.images[0].url} alt="Album Cover"  style={{margin: 3}}/>
+                                            </td>
+                                            <td style={{ color: '#FFFFFF', padding: 4}}>{post.track_id.body.name}</td>
+                                            <td style={{ color: '#FFFFFF', padding: 4}}>{post.track_id.body.artists[0].name}</td>
+                                            <td style={{ color: '#FFFFFF', padding: 4}}>{post.comment}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
                 {/* End of New Code */} 
                 <div className="column side">
