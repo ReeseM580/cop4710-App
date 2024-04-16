@@ -90,20 +90,24 @@ export default async function Profile() {
 
 
                     {/* New Code */}
-                    <table>
-                        <tbody>
-                            {modifiedData.map((post, index) => (
-                                <tr key={index}>
-                                    <td>
-                                        <img src={post.track_id.body.album.images[0].url} alt="Album Cover" />
-                                    </td>
-                                    <td style={{ color: '#FFFFFF'}}>{post.track_id.body.name}</td>
-                                    <td style={{ color: '#FFFFFF'}}>{post.track_id.body.artists[0].name}</td>
-                                    <td style={{ color: '#FFFFFF' }}>{post.comment}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    <div style={{ fontFamily: 'monaco', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+                        {/* Table */}
+                        <table>
+                            <tbody>
+                                {/* Mapping over modifiedData to display each post */}
+                                {modifiedData.map((post, index) => (
+                                    <tr key={index}>
+                                        <td>
+                                            <img src={post.track_id.body.album.images[0].url} alt="Album Cover" />
+                                        </td>
+                                        <td style={{ color: '#FFFFFF'}}>{post.track_id.body.name}</td>
+                                        <td style={{ color: '#FFFFFF'}}>{post.track_id.body.artists[0].name}</td>
+                                        <td style={{ color: '#FFFFFF' }}>{post.comment}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
 
                     {/* End of New Code */}
 
