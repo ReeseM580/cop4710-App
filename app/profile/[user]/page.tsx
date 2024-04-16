@@ -6,31 +6,28 @@ import Link from 'next/link';
 import SpotifyWebApi from "spotify-web-api-node";
 
 export default async function Profile() {
+
+    console.log('888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888');
+
     const cookieStore = cookies();
 
     const supabase = createClient(cookieStore);
+    
 
     let spotifyApi = new SpotifyWebApi({
         clientId: process.env.SPOTIFY_CLIENT_ID ,
         clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
     });
-
-
-
-
-
-
-
-
+    const { user } = await supabase.auth.getUser();
     const {
         data: {session},
     } = await supabase.auth.getSession()
 
     if (session) {
         const {provider_token, provider_refresh_token} = session;
-        console.log("Found session");
+        //console.log("Found session");
         if (provider_token && provider_refresh_token) {
-            console.log("Found tokens")
+            //console.log("Found tokens")
             await spotifyApi.setAccessToken(provider_token);
             await spotifyApi.setRefreshToken(provider_refresh_token);
         }
@@ -41,53 +38,28 @@ export default async function Profile() {
     console.log(artists.body.items?.at(0)?.name);
 
     // new code here
+    let modifiedData;
+
 
     const { data, error } = await supabase
         .from('posts')
         .select('*')
-        .eq('user_id', id)
+        .eq('user_id', session?.user.id)
         .order('created_at', { ascending: false });
 
     if (error) {
         console.error('Error fetching posts:', error.message);
     } else {
-        let postsContainer = document.getElementById('posts-container');
-
-        // Clear previous content
-        postsContainer.innerHTML = '';
-
-        // Loop through the data array and generate HTML for each post
-        data.forEach(async post => {
-            const postElement = document.createElement('div');
-            postElement.classList.add('post');
-
-            // Fetch additional data from Spotify using the track ID
-            const spotifyData = await spotifyApi.getTrack(post.trackID);
-
-            // Display Spotify information
-            if (spotifyData) {
-                const imgElement = document.createElement('img');
-                imgElement.src = '${spotifyData.body.album.images[0].url}';
-
-                const songElement = document.createElement('p');
-                songElement.textContent = `${spotifyData.body.name}\n${spotifyData.body.artists[0].name}`;
-                postElement.append(imgElement);
-                postElement.appendChild(songElement);
-            }
-
-            // Display comment
-            const commentElement = document.createElement('p');
-            commentElement.textContent = `Comment: ${post.comment}`;
-            postElement.appendChild(commentElement);
-
-            postsContainer.appendChild(postElement);
-        });
+        try {
+            modifiedData = await Promise.all(data.map(async post => {
+                const modifiedPost = { ...post };
+                modifiedPost.track_id = await spotifyApi.getTrack(post.track_id);
+                return modifiedPost;
+            }));
+        } catch (error) {
+            console.error('Error modifying data:', error.message);
+        }
     }
-
-
-    // new code above
-
-    
 
 
 
@@ -118,9 +90,21 @@ export default async function Profile() {
 
 
                     {/* New Code */}
-                    <div id="posts-container">
-                        {/* Dynamically generated content will be appended here */}
-                    </div>
+                    <table>
+                        <tbody>
+                            {modifiedData.map((post, index) => (
+                                <tr key={index}>
+                                    <td>
+                                        <img src={post.track_id.body.album.images[0].url} alt="Album Cover" />
+                                    </td>
+                                    <td style={{ color: '#FFFFFF'}}>{post.track_id.body.name}</td>
+                                    <td style={{ color: '#FFFFFF'}}>{post.track_id.body.artists[0].name}</td>
+                                    <td style={{ color: '#FFFFFF' }}>{post.comment}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+
                     {/* End of New Code */}
 
 
