@@ -7,6 +7,7 @@ import SpotifyWebApi from "spotify-web-api-node";
 
 export default async function Profile() {
 
+    console.log('888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888');
 
     const cookieStore = cookies();
 
@@ -17,6 +18,7 @@ export default async function Profile() {
         clientId: process.env.SPOTIFY_CLIENT_ID ,
         clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
     });
+    const { user } = await supabase.auth.getUser();
     const {
         data: {session},
     } = await supabase.auth.getSession()
@@ -55,61 +57,69 @@ export default async function Profile() {
                 return modifiedPost;
             }));
         } catch (error) {
-            console.error('Error modifying data:', error);
+            console.error('Error modifying data:', error.message);
         }
     }
 
-    return (
-        <div className="flex w-full flex-col items-center overflow-y-scroll scrollbar-hide"  style={{ fontFamily: 'monaco' }}>
-            {/* @ts-expect-error Server Component */}
-            {<Navbar/>}
-            <div className="full-div w-full m-20">
-                <div className="column side">
-                    <p className='text-black'> .</p>
-                </div>
+
+
+
+
+
+
+    
+        return (
+            <div className="flex w-full flex-col items-center overflow-y-scroll scrollbar-hide"  style={{ fontFamily: 'monaco' }}>
+                {/* @ts-expect-error Server Component */}
+                {<Navbar/>}
+                <div className="full-div w-full m-20">
+                    <div className="column side">
+                        <p className='text-black'> .</p>
+                    </div>
                     
-                <div className=" column middle" 
-                    style={{padding:2}}>
-                    <div className="flex items-center">
-                        <img alt="" src={session?.user.user_metadata.picture} style={{  height: 200, width: 200}}
-                        className="rounded-full"/>
-                        <h1 className="font-bold text-xl "
-                            style={{padding: 100}}>{session?.user.user_metadata.name}</h1>
-                    </div>
-                    <div className="flex" style={{alignItems: 'center', justifyContent: 'center'}}>
-                        <h1 style={{padding: 10}}>Posts</h1>
-                    </div>
-                    <div>
-                        {/* New Code */}
-                        <div style={{ fontFamily: 'monaco', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 10}}
-                            className="">
-                            {/* Table */}
-                            <table>
-                                <tbody>
-                                    {/* Mapping over modifiedData to display each post */}
-                                    {modifiedData?.map((post, index) => (
-                                        <tr key={index} style={{border: 'solid', padding: 30, borderRadius: 10}}
-                                            className="border-white border-collapse-10%">
-                                            <td>
-                                                <img src={post.track_id.body.album.images[0].url} alt="Album Cover"  style={{margin: 3}}/>
-                                            </td>
-                                            <td style={{ color: '#FFFFFF', padding: 4}}>{post.track_id.body.name}</td>
-                                            <td style={{ color: '#FFFFFF', padding: 4}}>{post.track_id.body.artists[0].name}</td>
-                                            <td style={{ color: '#FFFFFF', padding: 4}}>{post.comment}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                    <div className="flex column middle ">
+                        <div>
+                            <img alt="" src={session?.user.user_metadata.picture} style={{ borderRadius: '50%' }} 
+                            width="" height=""/> 
+                        </div>
+                        <h1 className="py-16 font-bold text-xl">{session?.user.user_metadata.name}</h1>
+                        <div>
+                            {artists.body.items?.at(1)?.name}
                         </div>
                     </div>
+
+
+                    {/* New Code */}
+                    <div style={{ fontFamily: 'monaco', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+                        {/* Table */}
+                        <table>
+                            <tbody>
+                                {/* Mapping over modifiedData to display each post */}
+                                {modifiedData.map((post, index) => (
+                                    <tr key={index}>
+                                        <td>
+                                            <img src={post.track_id.body.album.images[0].url} alt="Album Cover" />
+                                        </td>
+                                        <td style={{ color: '#FFFFFF'}}>{post.track_id.body.name}</td>
+                                        <td style={{ color: '#FFFFFF'}}>{post.track_id.body.artists[0].name}</td>
+                                        <td style={{ color: '#FFFFFF' }}>{post.comment}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {/* End of New Code */}
+
+
+                    
+                    <div className="column side">
+                        <p className='text-black'> .</p>
+                    </div>
                 </div>
-                {/* End of New Code */} 
-                <div className="column side">
-                    <p className='text-black'> .</p>
-                </div>
+
+
             </div>
-        </div>
-    )
+        )
 
 }
-

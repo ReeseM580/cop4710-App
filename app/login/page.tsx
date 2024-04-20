@@ -27,7 +27,7 @@ export default function Login({
         
         //const accessToken = getAccessToken();
         //console.log(accessToken);
-        console.log(data);
+       // console.log(data);
 
         //**********data.session.providerToken
         //console.log(supabase.auth);
