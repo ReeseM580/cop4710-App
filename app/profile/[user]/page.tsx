@@ -8,6 +8,7 @@ import SpotifyWebApi from "spotify-web-api-node";
 export default async function Profile() {
 
 
+
     const cookieStore = cookies();
 
     const supabase = createClient(cookieStore);
@@ -17,6 +18,9 @@ export default async function Profile() {
         clientId: process.env.SPOTIFY_CLIENT_ID ,
         clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
     });
+
+    const { user } = await supabase.auth.getUser();
+
     const {
         data: {session},
     } = await supabase.auth.getSession()
@@ -49,6 +53,7 @@ export default async function Profile() {
                 return modifiedPost;
             }));
         } catch (error) {
+
             console.error('Error modifying data:', error);
         }
     }
@@ -70,6 +75,7 @@ export default async function Profile() {
                         <h1 className="font-bold text-xl "
                             style={{padding: 100}}>{session?.user.user_metadata.name}</h1>
                     </div>
+
                     <div className="flex" style={{alignItems: 'center', justifyContent: 'center'}}>
                         <h1 style={{padding: 10}}>Posts</h1>
                     </div>
@@ -95,6 +101,7 @@ export default async function Profile() {
                                 </tbody>
                             </table>
                         </div>
+
                     </div>
                 </div>
                 {/* End of New Code */} 
