@@ -28,9 +28,7 @@ export default async function(){
 
     if (session) {
         const {provider_token, provider_refresh_token} = session;
-        console.log("Found session");
         if (provider_token && provider_refresh_token) {
-            console.log("Found tokens")
             await spotifyApi.setAccessToken(provider_token);
             await spotifyApi.setRefreshToken(provider_refresh_token);
         }

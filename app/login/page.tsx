@@ -25,12 +25,6 @@ export default function Login({
             options: {redirectTo: `${origin}/auth/callback`, scopes: "user-read-email playlist-read-private playlist-read-collaborative streaming user-read-private user-library-read user-top-read user-read-playback-state user-modify-playback-state user-read-currently-playing user-read-recently-played user-follow-read"}
         })
         
-        //const accessToken = getAccessToken();
-        //console.log(accessToken);
-        console.log(data);
-
-        //**********data.session.providerToken
-        //console.log(supabase.auth);
 
 
         if (error) {
@@ -39,6 +33,7 @@ export default function Login({
 
         if(data.url)
             return redirect(data.url)
+        
         
         return redirect("/login?message=Could not authenticate user");
       }
@@ -57,7 +52,7 @@ export default function Login({
             password,
         });
 
-        console.log(email);
+        console.log(error);
 
         if (error) {
             return redirect("/login?message=Could not authenticate user");

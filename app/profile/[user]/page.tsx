@@ -23,17 +23,11 @@ export default async function Profile() {
 
     if (session) {
         const {provider_token, provider_refresh_token} = session;
-        //console.log("Found session");
         if (provider_token && provider_refresh_token) {
-            //console.log("Found tokens")
             await spotifyApi.setAccessToken(provider_token);
             await spotifyApi.setRefreshToken(provider_refresh_token);
         }
     }
-    
-    const id = session?.user.id
-    const artists = await spotifyApi.getMyTopArtists();
-    console.log(artists.body.items?.at(0)?.name);
 
     // new code here
     let modifiedData;
