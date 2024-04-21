@@ -4,6 +4,11 @@ import { convertCompilerOptionsFromJson } from "typescript";
 import SpotifyWebApi from "spotify-web-api-node";
 import { HeartIcon } from "@heroicons/react/outline";
 import LikeButton from "./LikeButton";
+import { use } from "react";
+import { QueryResult, QueryData, QueryError } from '@supabase/supabase-js'
+import { sql } from '@vercel/postgres';
+
+
 
 export default async function Posts(){
     
@@ -14,15 +19,33 @@ export default async function Posts(){
         data: {session},
     } = await supabase.auth.getSession()
 
-    const { data: recentPost, error } = await supabase
-        .from('posts')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .limit(1);
+    const usersWithPostsQuery = supabase.from('reference_users').select(`
+        user_id,
+        display_name,
+        pfp_url,
+        posts (
+            user_id,
+            track_id,
+            comment
+        )
+    `)
+    .order('created_at', { ascending: false });
 
-    if (error) {
-        console.error('Error fetching recent posts:', error.message);
-        return null;
+    const { data, error } = await usersWithPostsQuery
+    if(error) throw error
+
+    type userPost = {
+        user_id: string;
+        track_id: string;
+        comment: string;
+    };
+
+    const filteredData = data.filter((user: any) => user.posts.length > 0);
+
+
+    const postsArray: [string, userPost][] = [];
+    for (const user of filteredData){
+        postsArray.push([user.display_name, user.posts[user.posts.length - 1]])     
     }
 
     let spotifyApi = new SpotifyWebApi({
@@ -32,35 +55,35 @@ export default async function Posts(){
 
     if (session) {
         const {provider_token, provider_refresh_token} = session;
-        console.log("Found session");
         if (provider_token && provider_refresh_token) {
-            console.log("Found tokens")
             await spotifyApi.setAccessToken(provider_token);
             await spotifyApi.setRefreshToken(provider_refresh_token);
         }
     }
 
-    const trackId = recentPost[0].track_id;
-    const track = await spotifyApi.getTrack(trackId);
-    
-    console.log(track.body.name)
-    console.log(recentPost[0].user_i)
+    const modifiedPostsArray = await Promise.all(filteredData.map(async (user: any) => {
+        const latestPost: userPost = user.posts[user.posts.length - 1];
+        const trackDetails = await spotifyApi.getTrack(latestPost.track_id);
+        return { displayName: user.display_name, trackDetails };
+        
+    }));
 
-    
-    
     return (
-        <div className="flex justify-center items-center m-[1rem]">
-            <div className="border-white border-collapse-10% animate-in "
-            style={{border: 'solid', padding: 30, borderRadius: 10}}>
-                <img src={track.body.album.images[0].url}
+        <div>
+            {modifiedPostsArray?.map((postInfo, index) => (
+                <div key={index} style={{border: 'solid', padding: 5, borderRadius: 10, 
+                    display: 'flex', flexDirection: 'column', alignItems: 'center', margin: 20}}
+                    className="border-white border-collapse-10%">
+                    <p style={{padding: 5}}>{postInfo?.displayName}</p>
+                    <img src={postInfo?.trackDetails.body.album.images[0].url}
                     width={500} height={500}
-                    className=""/>
-                <p>{track.body.name}</p>
-                <p>by {track.body.artists[0].name}</p>
-                <p>{recentPost[0].comment}</p>
-                {<LikeButton/>}
-            </div>
+                    style={{margin:2}}/>
+                    <p>{postInfo?.trackDetails.body.name}</p>
+                    <p>by {postInfo?.trackDetails.body.artists[0].name}</p>
+                    <p>{postsArray[index][1].comment}</p>
+                    {<LikeButton/>}   
+                </div>
+            ))}
         </div>
     )
-
 }

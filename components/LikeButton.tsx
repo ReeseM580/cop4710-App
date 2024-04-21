@@ -16,7 +16,7 @@ export default function LikeButton(){
         <div>
             <HeartIcon
                 className='h-5 w-5 cursor-pointer'
-                style={{ color: clicked ? 'red' : 'currentColor' }}
+                style={{ color: clicked ? 'red' : 'currentColor', margin: 3 }}
                 onClick={handleClick}
       />
     </div>
