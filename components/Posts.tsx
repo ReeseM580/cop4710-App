@@ -40,9 +40,12 @@ export default async function Posts(){
         comment: string;
     };
 
+    const filteredData = data.filter((user: any) => user.posts.length > 0);
+
+
     const postsArray: [string, userPost][] = [];
-    for (const user of data){
-        postsArray.push([user.display_name, user.posts[user.posts.length - 1]])
+    for (const user of filteredData){
+        postsArray.push([user.display_name, user.posts[user.posts.length - 1]])     
     }
 
     let spotifyApi = new SpotifyWebApi({
@@ -58,10 +61,11 @@ export default async function Posts(){
         }
     }
 
-    const modifiedPostsArray = await Promise.all(data.map(async (user: any) => {
+    const modifiedPostsArray = await Promise.all(filteredData.map(async (user: any) => {
         const latestPost: userPost = user.posts[user.posts.length - 1];
         const trackDetails = await spotifyApi.getTrack(latestPost.track_id);
         return { displayName: user.display_name, trackDetails };
+        
     }));
 
     return (
@@ -70,12 +74,12 @@ export default async function Posts(){
                 <div key={index} style={{border: 'solid', padding: 5, borderRadius: 10, 
                     display: 'flex', flexDirection: 'column', alignItems: 'center', margin: 20}}
                     className="border-white border-collapse-10%">
-                    <p style={{padding: 5}}>{postInfo.displayName}</p>
-                    <img src={postInfo.trackDetails.body.album.images[0].url}
+                    <p style={{padding: 5}}>{postInfo?.displayName}</p>
+                    <img src={postInfo?.trackDetails.body.album.images[0].url}
                     width={500} height={500}
                     style={{margin:2}}/>
-                    <p>{postInfo.trackDetails.body.name}</p>
-                    <p>by {postInfo.trackDetails.body.artists[0].name}</p>
+                    <p>{postInfo?.trackDetails.body.name}</p>
+                    <p>by {postInfo?.trackDetails.body.artists[0].name}</p>
                     <p>{postsArray[index][1].comment}</p>
                     {<LikeButton/>}   
                 </div>
