@@ -13,12 +13,10 @@ export default async function CreatePostButton(){
         'use server';
 
         const supabase = createServerActionClient({cookies});
-        console.log(supabase)
     
         const {
             data: {session},
         } = await supabase.auth.getSession()
-        console.log(session)
     
         let spotifyApi = new SpotifyWebApi({
             clientId: process.env.SPOTIFY_CLIENT_ID ,
@@ -27,16 +25,12 @@ export default async function CreatePostButton(){
     
         if (session) {
             const {provider_token, provider_refresh_token} = session;
-            console.log("Found session");
             if (provider_token && provider_refresh_token) {
-                console.log("Found tokens")
                 await spotifyApi.setAccessToken(provider_token);
                 await spotifyApi.setRefreshToken(provider_refresh_token);
             }
         }
-    
-        console.log(spotifyApi)
-    
+        
         var trackId = await (
             await spotifyApi.getMyCurrentPlayingTrack()
             ).body.item?.id;    
@@ -47,14 +41,11 @@ export default async function CreatePostButton(){
                 await spotifyApi.getMyRecentlyPlayedTracks()
                 ).body.items.at(0)?.track?.id;
         
-        console.log(trackId)
         let track: any;
     
         if(trackId)
             track = await spotifyApi.getTrack(trackId);
-        
-            console.log(track)
-        
+                
         const comment = formData.get("comment")
         
         await supabase.from("posts").insert({
@@ -67,7 +58,7 @@ export default async function CreatePostButton(){
     return (
             <form action={createPost}>
                     
-                    <input name="comment" className="text-black"></input><br/>
+                    <input name="comment" className="text-black" maxLength={55}></input><br/>
                     <button className="flex bg-black rounded-full
                     border-white border
                     hover:bg-gray-500 

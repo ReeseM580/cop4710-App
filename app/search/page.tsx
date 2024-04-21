@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import { cookies } from "next/headers";
 import { createClient } from '@/utils/supabase/server';
+import Posts from "@/components/Posts";
 
 export default async function search(){
     
@@ -18,20 +19,10 @@ export default async function search(){
         return null;
     }
 
-    //console.log(recentPosts[0].track_id)
 
     
-    return <pre>{JSON.stringify(recentPosts, null, 2)}</pre>
-    
-    /*return (
-        <div className="flex w-full flex-col items-center overflow-y-scroll scrollbar-hide"
-        style={{ fontFamily: 'monaco' }}>
-            {/* @ts-expect-error Server Component }
-            {<Navbar/>}
-            <div className="m-16">
-                <p>hi</p>
-            </div>
-        </div>
-    )*/
+    return <pre>
+        <p>f</p>
+        </pre>
 
 }
