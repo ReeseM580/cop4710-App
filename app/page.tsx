@@ -1,4 +1,3 @@
-
 import DeployButton from "../components/DeployButton";
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
@@ -51,7 +50,7 @@ export default async function Index() {
 
     return (
 
-        <div className="min-h-screen flex flex-col items-center scrollbar-hide"  style={{ fontFamily: 'monaco' }}>
+        <div className="min-h-screen flex flex-col items-center overflow-y-scroll scrollbar-hide"  style={{ fontFamily: 'monaco' }}>
             {/* @ts-expect-error Server Component */}
             {<Navbar/>}
 

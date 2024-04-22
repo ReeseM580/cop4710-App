@@ -3,7 +3,6 @@ import React from "react";
 import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import SpotifyWebApi from "spotify-web-api-node";
-import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 
@@ -56,22 +55,19 @@ export default async function CreatePostButton(){
     }
 
     return (
-            <form action={createPost}>
-                    
-                    <input name="comment" className="text-black" maxLength={55}></input><br/>
-                    <button className="flex bg-black rounded-full
-                    border-white border
-                    hover:bg-gray-500 
-                    items-center
-                    hover:text-white 
-                    cursor-pointer 
-                    hover:opacity-80 
-                    p-1.5 my-3 gap-2"
-                    >  
-                    Post
-                    <ArrowNarrowRightIcon className="h-5 w-5"/>
-                    </button>
-                </form>
-    )
-    
+        <form action={createPost}> 
+            <input name="comment" className="text-black" maxLength={55}></input><br/>
+            <button className="flex bg-black rounded-full
+                border-white border
+                hover:bg-gray-500 
+                items-center
+                hover:text-white 
+                cursor-pointer 
+                hover:opacity-80 
+                p-1.5 my-3 gap-2">  
+                Post
+                <ArrowNarrowRightIcon className="h-5 w-5"/>
+            </button>
+        </form>
+    )    
 }
