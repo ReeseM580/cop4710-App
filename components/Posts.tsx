@@ -1,14 +1,7 @@
 import { cookies } from "next/headers";
 import { createClient } from '@/utils/supabase/server';
-import { convertCompilerOptionsFromJson } from "typescript";
 import SpotifyWebApi from "spotify-web-api-node";
-import { HeartIcon } from "@heroicons/react/outline";
 import LikeButton from "./LikeButton";
-import { use } from "react";
-import { QueryResult, QueryData, QueryError } from '@supabase/supabase-js'
-import { sql } from '@vercel/postgres';
-
-
 
 export default async function Posts(){
     
@@ -42,7 +35,6 @@ export default async function Posts(){
 
     const filteredData = data.filter((user: any) => user.posts.length > 0);
 
-
     const postsArray: [string, userPost][] = [];
     for (const user of filteredData){
         postsArray.push([user.display_name, user.posts[user.posts.length - 1]])     
@@ -69,17 +61,17 @@ export default async function Posts(){
     }));
 
     return (
-        <div>
+        <div className="overflow-y-scroll scrollbar-hide">
             {modifiedPostsArray?.map((postInfo, index) => (
                 <div key={index} style={{border: 'solid', padding: 5, borderRadius: 10, 
                     display: 'flex', flexDirection: 'column', alignItems: 'center', margin: 20}}
                     className="border-white border-collapse-10%">
-                    <p style={{padding: 5}}>{postInfo?.displayName}</p>
-                    <img src={postInfo?.trackDetails.body.album.images[0].url}
+                    <p style={{padding: 5}}>{postInfo.displayName}</p>
+                    <img src={postInfo.trackDetails.body.album.images[0].url}
                     width={500} height={500}
                     style={{margin:2}}/>
-                    <p>{postInfo?.trackDetails.body.name}</p>
-                    <p>by {postInfo?.trackDetails.body.artists[0].name}</p>
+                    <p>{postInfo.trackDetails.body.name}</p>
+                    <p>by {postInfo.trackDetails.body.artists[0].name}</p>
                     <p>{postsArray[index][1].comment}</p>
                     {<LikeButton/>}   
                 </div>

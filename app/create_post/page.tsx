@@ -49,32 +49,6 @@ export default async function(){
     if(trackId)
         track = await spotifyApi.getTrack(trackId);
 
-    
-    /*async function onSubmit(event: FormEvent<HTMLFormElement>){
-        event.preventDefault()
-        setIsLoading(true)
-        setError(null)
-
-        try{
-            //create post
-            
-        } catch(error){
-            setError(error.message)
-            console.error(error)
-        } finally {
-            setIsLoading(false)
-        }
-    }
-    */
-    const createPost = async () => {
-        "use server";
-        const { data } = await supabase.from("posts").insert({
-            created_at: new Date().toISOString(), user_id: session?.user.id, track_id: trackId})
-            .single();
-        //console.log(track.body.artists.name);
-    
-    }
-
 
     return track ? (
         <div className="w-full" style={{ fontFamily: 'monaco' }}>

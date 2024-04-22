@@ -6,7 +6,6 @@ import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { data } from "autoprefixer";
 
 export default async function AuthButton() {
     const cookieStore = cookies();
