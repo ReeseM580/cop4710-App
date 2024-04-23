@@ -73,7 +73,7 @@ export default async function Posts(){
                     <p>{postInfo.trackDetails.body.name}</p>
                     <p>by {postInfo.trackDetails.body.artists[0].name}</p>
                     <p>{postsArray[index][1].comment}</p>
-                    {<LikeButton/>}   
+                    {<LikeButton postId={postInfo.post_id}/>}
                 </div>
             ))}
         </div>

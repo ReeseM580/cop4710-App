@@ -18,14 +18,14 @@ const DeletePostButton = ({ postId }) => {
     setIsDeleting(false);
     if (error) {
       console.error("Failed to delete post:", error.message);
-      setDeleteError("Failed to delete post."); // Handle error state and display message
+      setDeleteError("Failed to delete post."); 
     } else {
-      setIsDeleted(true); // Set the flag that the post is deleted
+      setIsDeleted(true);
     }
   };
 
   if (isDeleted) {
-    return <p>Post deleted successfully.</p>; // Show a success message or render nothing
+    return <p>Post deleted successfully.</p>; 
   }
 
   return (

@@ -94,7 +94,7 @@ export default async function Profile() {
                                             <img src={post.track_id.body.album.images[0].url} style={{height: 500, width: 500}}/>
                                             <p style={{ color: '#FFFFFF', padding: 4}}>{post.track_id.body.name}</p>
                                             <p style={{ color: '#FFFFFF', padding: 4}}>{post.comment}</p>
-                                            {<LikeButton/>}
+                                            {<LikeButton postId={post.post_id}/>}
                                             <DeletePostButton postId={post.post_id} />
                                         </div>
                                     );
