@@ -29,6 +29,7 @@ export default async function AuthButton() {
         } = await supabase.auth.getSession()
 
 
+
     return user ? (
         <div className="flex items-center gap-4">
             {user.user_metadata.name}

@@ -9,8 +9,6 @@ const DeletePostButton = ({ postId }) => {
 
   const supabase = createClient();
 
-  console
-
   const handleDelete = async () => {
     setIsDeleting(true);
     const { error } = await supabase
