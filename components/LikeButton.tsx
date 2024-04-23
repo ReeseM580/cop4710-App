@@ -15,10 +15,10 @@ export default function LikeButton(){
     return (
         <div>
             <HeartIcon
-                className='h-5 w-5 cursor-pointer'
+                className={`h-5 w-5 cursor-pointer ${clicked ? 'pulse' : ''}`}
                 style={{ color: clicked ? 'red' : 'currentColor', margin: 3 }}
                 onClick={handleClick}
-      />
+            />
     </div>
         
     )

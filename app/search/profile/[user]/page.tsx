@@ -79,6 +79,7 @@ export default async function Profile({ params }: { params: { user: string } }) 
                             <p style={{ color: '#FFFFFF', padding: 4}}>{post.track_id.body.name}</p>
                             <p style={{ color: '#FFFFFF', padding: 4}}>{post.comment}</p>
                             {<LikeButton/>}
+                            
                         </div>
                     );
                 })}

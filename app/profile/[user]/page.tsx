@@ -3,6 +3,9 @@ import Navbar from '@/components/Navbar';
 import { createClient } from '@/utils/supabase/server';
 import { cookies } from 'next/headers';
 import SpotifyWebApi from "spotify-web-api-node";
+import DeletePostButton from "@/components/DeletePostButton";
+import EditPostButton from '@/components/EditPostButton';
+
 
 export default async function Profile() {
 
@@ -86,6 +89,8 @@ export default async function Profile() {
                                             <p style={{ color: '#FFFFFF', padding: 4}}>{post.track_id.body.name}</p>
                                             <p style={{ color: '#FFFFFF', padding: 4}}>{post.comment}</p>
                                             {<LikeButton/>}
+                                            <EditPostButton postId={post.post_id} initialComment={post.comment} onEditSuccess={null}/>
+                                            <DeletePostButton postId={post.post_id}/>
                                         </div>
                                     );
                                 })}
