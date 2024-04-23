@@ -1,4 +1,6 @@
+import DeletePostButton from '@/components/DeletePostButton';
 import LikeButton from '@/components/LikeButton';
+import EditPostButton from "@/components/EditPostButton";
 import Navbar from '@/components/Navbar';
 import { createClient } from '@/utils/supabase/server';
 import { cookies } from 'next/headers';
@@ -57,6 +59,8 @@ export default async function Profile() {
         }
     }
 
+    
+
     return (
         <div className="flex w-full flex-col items-center overflow-y-scroll scrollbar-hide"  style={{ fontFamily: 'monaco' }}>
             {/* @ts-expect-error Server Component */}
@@ -92,6 +96,8 @@ export default async function Profile() {
                                             <p style={{ color: '#FFFFFF', padding: 4}}>{post.track_id.body.name}</p>
                                             <p style={{ color: '#FFFFFF', padding: 4}}>{post.comment}</p>
                                             {<LikeButton/>}
+                                            <EditPostButton postId={post.post_id} initialComment={post.comment} onEditSuccess={null}/>
+                                            <DeletePostButton postId={post.post_id} />
                                         </div>
                                     );
                                 })}
