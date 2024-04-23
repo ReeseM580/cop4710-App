@@ -1,8 +1,8 @@
+import DeletePostButton from '@/components/DeletePostButton';
+import LikeButton from '@/components/LikeButton';
 import Navbar from '@/components/Navbar';
 import { createClient } from '@/utils/supabase/server';
-import { HomeIcon, MusicNoteIcon, SearchIcon, UserIcon } from '@heroicons/react/outline';
 import { cookies } from 'next/headers';
-import Link from 'next/link';
 import SpotifyWebApi from "spotify-web-api-node";
 
 export default async function Profile() {
@@ -58,6 +58,8 @@ export default async function Profile() {
         }
     }
 
+    
+
     return (
         <div className="flex w-full flex-col items-center overflow-y-scroll scrollbar-hide"  style={{ fontFamily: 'monaco' }}>
             {/* @ts-expect-error Server Component */}
@@ -69,8 +71,8 @@ export default async function Profile() {
                     
                 <div className=" column middle" 
                     style={{padding:2}}>
-                    <div className="flex items-center">
-                        <img alt="" src={session?.user.user_metadata.picture} style={{  height: 200, width: 200}}
+                    <div className="flex items-center border-white border-collapse-10%" style={{border: 'solid', padding: 5, borderRadius: 10}}>
+                        <img alt="" src={session?.user.user_metadata.picture} style={{ height: 200, width: 200}}
                         className="rounded-full"/>
                         <h1 className="font-bold text-xl "
                             style={{padding: 100}}>{session?.user.user_metadata.name}</h1>
@@ -82,24 +84,22 @@ export default async function Profile() {
                     <div>
                         {/* New Code */}
                         <div style={{ fontFamily: 'monaco', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 10}}
-                            className="">
+                            >
                             {/* Table */}
-                            <table>
-                                <tbody>
-                                    {/* Mapping over modifiedData to display each post */}
-                                    {modifiedData?.map((post, index) => (
-                                        <tr key={index} style={{border: 'solid', padding: 30, borderRadius: 10}}
-                                            className="border-white border-collapse-10%">
-                                            <td>
-                                                <img src={post.track_id.body.album.images[0].url} alt="Album Cover"  style={{margin: 3}}/>
-                                            </td>
-                                            <td style={{ color: '#FFFFFF', padding: 4}}>{post.track_id.body.name}</td>
-                                            <td style={{ color: '#FFFFFF', padding: 4}}>{post.track_id.body.artists[0].name}</td>
-                                            <td style={{ color: '#FFFFFF', padding: 4}}>{post.comment}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                            <div>
+                                {modifiedData?.map((post, index) => {
+                                    return (
+                                        <div key={index} className="flex items-center m-16 border-white border-collapse-10%" style={{border: 'solid', padding: 5, borderRadius: 10, 
+                                        display: 'flex', flexDirection: 'column', alignItems: 'center', margin: 20}}>
+                                            <img src={post.track_id.body.album.images[0].url} style={{height: 500, width: 500}}/>
+                                            <p style={{ color: '#FFFFFF', padding: 4}}>{post.track_id.body.name}</p>
+                                            <p style={{ color: '#FFFFFF', padding: 4}}>{post.comment}</p>
+                                            {<LikeButton/>}
+                                            <DeletePostButton postId={post.post_id} />
+                                        </div>
+                                    );
+                                })}
+                            </div>
                         </div>
 
                     </div>
