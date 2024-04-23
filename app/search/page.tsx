@@ -15,7 +15,6 @@ export default async function search(){
             {<Navbar/>}
             <div>
                 <SearchForUserForm/>
-                <p>{}</p>
             </div>
         </div>
     )

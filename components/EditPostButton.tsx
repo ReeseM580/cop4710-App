@@ -59,7 +59,11 @@ const EditPostButton = ({ postId, initialComment, onEditSuccess }) => {
                 />
                 <button
                     onClick={handleEdit}
-                    className="text-white bg-transparent border border-green-500 items-center hover:bg-green-500 hover:text-white font-bold py-2 px-4 rounded"
+                    className="text-white bg-transparent 
+                    border border-green-500 
+                    items-center hover:bg-green-500
+                    hover:text-white font-bold 
+                    py-2 px-4 rounded"
                 >
                     Edit Post
                 </button>
@@ -70,7 +74,10 @@ const EditPostButton = ({ postId, initialComment, onEditSuccess }) => {
         return (
             <button
                 onClick={() => setIsEditing(true)}
-                className="text-white bg-transparent border border-green-500 hover:bg-green-500 hover:text-white font-bold py-2 px-4 rounded"
+                className="text-white bg-transparent 
+                border border-green-500 
+                hover:bg-green-500 hover:text-white 
+                font-bold py-2 px-4 rounded"
             >
                 Edit Post
             </button>

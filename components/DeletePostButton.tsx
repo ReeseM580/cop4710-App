@@ -7,9 +7,10 @@ const DeletePostButton = ({ postId }) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleteError, setDeleteError] = useState("");
 
+  const supabase = createClient();
+
   const handleDelete = async () => {
     setIsDeleting(true);
-    const supabase = createClient();
     const { error } = await supabase
       .from('posts')
       .delete()
@@ -32,7 +33,7 @@ const DeletePostButton = ({ postId }) => {
     <button 
       onClick={handleDelete} 
       disabled={isDeleting} 
-      className="text-white bg-transparent border border-red-500 hover:bg-red-500 hover:text-white font-bold py-2 px-4 rounded">
+      className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
       {isDeleting ? 'Deleting...' : 'Delete Post'}
     </button>
   );

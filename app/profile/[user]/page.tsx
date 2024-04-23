@@ -1,13 +1,13 @@
-import DeletePostButton from '@/components/DeletePostButton';
 import LikeButton from '@/components/LikeButton';
-import EditPostButton from "@/components/EditPostButton";
 import Navbar from '@/components/Navbar';
 import { createClient } from '@/utils/supabase/server';
 import { cookies } from 'next/headers';
 import SpotifyWebApi from "spotify-web-api-node";
+import DeletePostButton from "@/components/DeletePostButton";
+import EditPostButton from '@/components/EditPostButton';
+
 
 export default async function Profile() {
-
 
 
     const cookieStore = cookies();
@@ -19,9 +19,6 @@ export default async function Profile() {
         clientId: process.env.SPOTIFY_CLIENT_ID ,
         clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
     });
-
-    const { user } = await supabase.auth.getUser();
-
     const {
         data: {session},
     } = await supabase.auth.getSession()
@@ -54,12 +51,9 @@ export default async function Profile() {
                 return modifiedPost;
             }));
         } catch (error) {
-
             console.error('Error modifying data:', error);
         }
     }
-
-    
 
     return (
         <div className="flex w-full flex-col items-center overflow-y-scroll scrollbar-hide"  style={{ fontFamily: 'monaco' }}>
@@ -78,7 +72,6 @@ export default async function Profile() {
                         <h1 className="font-bold text-xl "
                             style={{padding: 100}}>{session?.user.user_metadata.name}</h1>
                     </div>
-
                     <div className="flex" style={{alignItems: 'center', justifyContent: 'center'}}>
                         <h1 style={{padding: 10}}>Posts</h1>
                     </div>
@@ -97,13 +90,12 @@ export default async function Profile() {
                                             <p style={{ color: '#FFFFFF', padding: 4}}>{post.comment}</p>
                                             {<LikeButton/>}
                                             <EditPostButton postId={post.post_id} initialComment={post.comment} onEditSuccess={null}/>
-                                            <DeletePostButton postId={post.post_id} />
+                                            <DeletePostButton postId={post.post_id}/>
                                         </div>
                                     );
                                 })}
                             </div>
                         </div>
-
                     </div>
                 </div>
                 {/* End of New Code */} 
@@ -115,4 +107,6 @@ export default async function Profile() {
     )
 
 }
+
+
 
